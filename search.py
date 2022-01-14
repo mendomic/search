@@ -17,6 +17,8 @@ In search.py, you will implement generic search algorithms which are called by
 Pacman agents (in searchAgents.py).
 """
 
+from turtle import end_fill
+from xml.dom.xmlbuilder import DocumentLS
 import util
 
 class SearchProblem:
@@ -86,7 +88,21 @@ def depthFirstSearch(problem):
     print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
-    "*** YOUR CODE HERE ***"
+    closed = set()
+
+    s = problem.getStartState()
+    fringe = util.Stack()
+    fringe.push(s, [], 0)
+
+    while not fringe.isEmpty():
+        (state, actions, cost) = fringe.pop()
+        if problem.isGoalState(state):
+            return actions
+        if state not in closed:
+            closed.add(state)
+            fringe.push(problem.getSuccessors(state), actions, 0)
+
+
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
