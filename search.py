@@ -100,7 +100,8 @@ def depthFirstSearch(problem):
             return actions
         if state not in closed:
             closed.add(state)
-            fringe.push(problem.getSuccessors(state), actions, 0)
+            for successors in problem.getSuccessors(state):
+                fringe.push(successors, actions, 0)
 
 
     util.raiseNotDefined()
